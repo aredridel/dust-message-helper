@@ -3,7 +3,9 @@
 var REGIDX = new RegExp('\\$idx', 'g');
 var REGKEY = new RegExp('\\$key', 'g');
 
-module.exports = function (dust) {
+module.exports = function (dust, options) {
+    options = options || {};
+
     dust.helpers.pre = dust.helpers.message = function message(chunk, ctx, bodies, params) {
 
         if (params.type && params.type !== 'content') {
@@ -39,6 +41,10 @@ module.exports = function (dust) {
             value = String(value);
         }
 
+        if (options.enableMetadata && !params.noEdit) {
+            value = '<edit data-key="' + quot(params.key) + '" data-bundle="' + quot(ctx.get('intl.bundle')) + '" data-original="' + quot(value) + '">' + value + '</edit>';
+        }
+
         return chunk.map(function (chunk) {
             /* And thus begins the ugly, possibly expensive hack to run dynamically loaded content through Dust */
             var cacheKey = ctx.templateName + params.key + encodeURI(value).replace(/%/g, '_');
@@ -47,6 +53,10 @@ module.exports = function (dust) {
             /* Here endeth the confusion, on Setting Orange, the 56th day of Bureaucracy in the YOLD 3180 */
         });
     };
+
+    function quot(str) {
+        return dust.filter(str, undefined, ['h']);
+    }
 };
 
 module.exports.registerWith = module.exports;

@@ -26,6 +26,11 @@ dust.render('template', { intl: { messages: { "greet.happy": "Hello, {who}!" } }
 
 Will give output `Hello, world!`
 
+In-place editing support
+------------------------
+
+To support in-place editing translation systems, `<edit>` tags can be emitted around content. If you pass `enableMetadata: true` to the helper module's options, `<edit>` tags will surround content strings. Those used in contexts where HTML is inappropriate (such as inside attributes) can disable this on a case by case basis with `noEdit="true"` in the helper tag.
+
 Differences from localizr
 -------------------------
 
