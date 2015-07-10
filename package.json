@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tap test/*.js",
-    "prepublish": "webpack index.js index.amd.js --output-library-target=amd --library=dust-usecontent-helper && webpack index.js index.umd.js --output-library-target=umd && webpack index.js index.browser.js --output-library-target=var --library=dustUsecontentHelper"
+    "prepublish": "webpack index.js index.amd.js --output-library-target=amd --library=dust-message-helper && webpack index.js index.umd.js --output-library-target=umd && webpack index.js index.browser.js --output-library-target=var --library=dustMessageHelper"
   },
   "repository": {
     "type": "git",
